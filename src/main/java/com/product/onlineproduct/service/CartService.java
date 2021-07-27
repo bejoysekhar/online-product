@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CartService {
@@ -34,11 +34,10 @@ public class CartService {
         CartDto cartDto = new CartDto();
         cartDto.setUserId(userId);
         items.forEach(e -> cartDto.getItemDtoList().add(new ItemDto(e.getProductId(),e.getQuantity())));
-        log.info("Cart: {}",cartDto);
         return cartDto;
     }
 
-    public Iterable<Item> addItemsToCart(CartDto cartDto)throws GenericException{
+    public List<Item> addItemsToCart(CartDto cartDto)throws GenericException{
         User user = userRepository.findById(cartDto.getUserId()).orElseThrow(() -> new GenericException("No user foound"));
         Set<Item> itemsInCart = user.getCart().getItems();
 
@@ -61,7 +60,7 @@ public class CartService {
 
         Iterable<Item> items = itemRepository.saveAll(itemsToSave);
 
-        return items;
+        return StreamSupport.stream(items.spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteUser(Long id){

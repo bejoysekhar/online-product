@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -25,8 +27,8 @@ public class CartController {
 //    }
 
     @PostMapping("/cart")
-    public ResponseEntity<Iterable<Item>> addItemsToCart(@RequestBody CartDto cartDto){
-        Iterable<Item> items = cartService.addItemsToCart(cartDto);
+    public ResponseEntity<List<Item>> addItemsToCart(@RequestBody CartDto cartDto){
+        List<Item> items = cartService.addItemsToCart(cartDto);
         return ResponseEntity.ok().body(items);
     }
 

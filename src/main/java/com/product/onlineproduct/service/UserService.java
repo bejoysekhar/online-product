@@ -22,7 +22,6 @@ public class UserService {
     public UserDto getUser(Long id) throws GenericException {
         User user = userRepository.findById(id).orElseThrow(() -> new GenericException("User Not Found"));
         UserDto userDto = new UserDto(user.getId(), user.getName());
-        log.info("User: {}", user);
         return userDto;
     }
 
@@ -34,7 +33,6 @@ public class UserService {
 
         User u = userRepository.save(user);
         UserDto userDto1 = new UserDto(u.getId(), u.getName());
-        log.info("User: {}", u);
         return userDto1;
     }
 
