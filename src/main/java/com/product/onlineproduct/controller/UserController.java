@@ -1,6 +1,6 @@
 package com.product.onlineproduct.controller;
 
-import com.product.onlineproduct.entity.Product;
+import com.product.onlineproduct.dto.UserDto;
 import com.product.onlineproduct.entity.User;
 import com.product.onlineproduct.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -21,21 +21,21 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getProduct(@PathVariable Long id){
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUser(id));
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> saveProduct(@RequestBody User user){
-        User u = userService.createUser(user);
-        URI uri = URI.create("/product/" + u.getId());
+    public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto){
+        UserDto u = userService.createUser(userDto);
+        URI uri = URI.create("/user/" + u.getId());
         return ResponseEntity.created(uri).body(u);
     }
 
     @DeleteMapping("/user/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteProduct(@PathVariable Long id){
-        userService.deleteProduct(id);
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
     }
 
 }

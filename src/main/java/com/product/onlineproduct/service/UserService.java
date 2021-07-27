@@ -1,5 +1,6 @@
 package com.product.onlineproduct.service;
 
+import com.product.onlineproduct.dto.UserDto;
 import com.product.onlineproduct.entity.User;
 import com.product.onlineproduct.exception.ProductNotFoundException;
 import com.product.onlineproduct.repository.UserRepository;
@@ -17,19 +18,23 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUser(Long id) throws ProductNotFoundException{
+    public UserDto getUser(Long id) throws ProductNotFoundException{
         User user = userRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("User Not Found"));
+        UserDto userDto = new UserDto(user.getId(), user.getName());
         log.info("User: {}", user);
-        return user;
+        return userDto;
     }
 
-    public User createUser(User user){
+    public UserDto createUser(UserDto userDto){
+        User user = new User();
+        user.setName(userDto.getName());
         User u = userRepository.save(user);
+        UserDto userDto1 = new UserDto(u.getId(), u.getName());
         log.info("User: {}", u);
-        return u;
+        return userDto1;
     }
 
-    public void deleteProduct(Long id){
+    public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
 
