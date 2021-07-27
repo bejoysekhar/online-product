@@ -1,13 +1,15 @@
 package com.product.onlineproduct.service;
 
-import com.product.onlineproduct.dto.ProductDto;
 import com.product.onlineproduct.entity.Product;
 import com.product.onlineproduct.exception.ProductNotFoundException;
 import com.product.onlineproduct.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ProductRepository productRepository;
 
@@ -15,19 +17,20 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public ProductDto getProduct(Long id) throws ProductNotFoundException{
+    public Product getProduct(Long id) throws ProductNotFoundException{
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
-        ProductDto productDto = new ProductDto();
-        productDto.setName(product.getName());
-        productDto.setDescription(product.getDescription());
-        return productDto;
+        log.info("Product: {}", product);
+        return product;
     }
 
-    public void createProduct(ProductDto productDto){
-        Product product = new Product();
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-
-        productRepository.save(product);
+    public Product createProduct(Product product){
+        Product p = productRepository.save(product);
+        log.info("Product: {}", p);
+        return p;
     }
+
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
+
 }

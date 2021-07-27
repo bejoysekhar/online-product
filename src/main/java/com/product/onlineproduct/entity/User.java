@@ -1,22 +1,16 @@
 package com.product.onlineproduct.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
-public class Product {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +18,7 @@ public class Product {
 
     private String name;
 
-    private String description;
+    @OneToOne
+    private Cart cart;
 
 }
