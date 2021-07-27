@@ -1,7 +1,7 @@
 package com.product.onlineproduct.service;
 
 import com.product.onlineproduct.entity.Product;
-import com.product.onlineproduct.exception.ProductNotFoundException;
+import com.product.onlineproduct.exception.GenericException;
 import com.product.onlineproduct.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product getProduct(Long id) throws ProductNotFoundException{
-        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
+    public Product getProduct(Long id) throws GenericException {
+        Product product = productRepository.findById(id).orElseThrow(() -> new GenericException("Product Not Found"));
         log.info("Product: {}", product);
         return product;
     }

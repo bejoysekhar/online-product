@@ -14,7 +14,7 @@ public class ProductExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(ex.getMessage()));
     }
 
-    @ExceptionHandler(value = {ProductNotFoundException.class})
+    @ExceptionHandler(value = {GenericException.class})
     public ResponseEntity<ErrorResponse> exceptionHandler(RuntimeException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(ex.getMessage()));
     }

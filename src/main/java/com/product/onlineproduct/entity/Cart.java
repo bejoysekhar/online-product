@@ -1,12 +1,13 @@
 package com.product.onlineproduct.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -18,8 +19,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cart")
-    private List<Item> items = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "cart")
+    @JsonManagedReference
+    private Set<Item> items = new HashSet<>();
 }

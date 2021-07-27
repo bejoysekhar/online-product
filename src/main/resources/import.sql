@@ -5,9 +5,9 @@ insert into product(name, description) values('Product 4', 'Product 4 descriptio
 insert into product(name, description) values('Product 5', 'Product 5 description');
 insert into product(name, description) values('Product 6', 'Product 6 description');
 
-insert into cart(id, name)  values(1, 'Cart1');
-insert into cart(id, name)  values(2, 'Cart2');
-insert into cart(id, name)  values(3, 'Cart3');
+insert into cart(id)  values(1);
+insert into cart(id)  values(2);
+insert into cart(id)  values(3);
 
 
 insert into user(name, cart_id) values('Name1', 1);
