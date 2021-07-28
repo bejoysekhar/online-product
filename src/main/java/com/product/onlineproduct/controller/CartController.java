@@ -1,10 +1,8 @@
 package com.product.onlineproduct.controller;
 
 import com.product.onlineproduct.dto.CartDto;
-import com.product.onlineproduct.dto.UserDto;
 import com.product.onlineproduct.entity.Item;
 import com.product.onlineproduct.service.CartService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +19,10 @@ public class CartController {
         this.cartService = cartService;
     }
 
-//    @GetMapping(value = "/user/{id}", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity<UserDto> getUser(@PathVariable Long id){
-//        return ResponseEntity.ok(userService.getUser(id));
-//    }
+    @GetMapping(value = "/cart", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CartDto> getCart(@RequestParam Long userId){
+        return ResponseEntity.ok(cartService.getCart(userId));
+    }
 
     @PostMapping("/cart")
     public ResponseEntity<List<Item>> addItemsToCart(@RequestBody CartDto cartDto){
