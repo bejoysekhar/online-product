@@ -28,8 +28,8 @@ public class CartServiceTest {
     public void getCartTest(){
         CartDto cart = cartService.getCart(1L);
         List<ItemDto> list = new ArrayList<>();
-        list.add(new ItemDto(1L, 1));
-        list.add(new ItemDto(2L, 2));
+        list.add(new ItemDto(1L, 1L, 1));
+        list.add(new ItemDto(2L, 2L, 2));
         assertEquals(1L, cart.getUserId());
         cart.getItemDtoList().sort(Comparator.comparing(ItemDto::getProductId).thenComparing(ItemDto::getQuantity));
         assertEquals(list, cart.getItemDtoList());
@@ -41,8 +41,8 @@ public class CartServiceTest {
         CartDto cartDto = new CartDto();
         cartDto.setUserId(5L);
         List<ItemDto> itemDtos = new ArrayList<>();
-        itemDtos.add(new ItemDto(1L, 1));
-        itemDtos.add(new ItemDto(2L, 2));
+        itemDtos.add(new ItemDto(1L, 1L, 1));
+        itemDtos.add(new ItemDto(2L, 2L, 2));
         cartDto.setItemDtoList(itemDtos);
 
         List<Item> itemsResponse = cartService.addItemsToCart(cartDto);

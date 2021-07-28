@@ -3,6 +3,7 @@ package com.product.onlineproduct.controller;
 import com.product.onlineproduct.dto.CartDto;
 import com.product.onlineproduct.entity.Item;
 import com.product.onlineproduct.service.CartService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,10 @@ public class CartController {
         return ResponseEntity.ok().body(items);
     }
 
-//    @DeleteMapping("/user/{id}")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public void deleteUser(@PathVariable Long id){
-//        userService.deleteUser(id);
-//    }
+    @DeleteMapping("/cart/item/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteItemsFromCart(@PathVariable Long id){
+        cartService.deleteItemsFromCart(id);
+    }
 
 }

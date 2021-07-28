@@ -9,6 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class ItemDto {
 
+    private Long itemId;
     private Long productId;
     private Integer quantity;
 

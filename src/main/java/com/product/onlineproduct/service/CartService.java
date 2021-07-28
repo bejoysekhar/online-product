@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,10 +34,11 @@ public class CartService {
         Set<Item> items = user.getCart().getItems();
         CartDto cartDto = new CartDto();
         cartDto.setUserId(userId);
-        items.forEach(e -> cartDto.getItemDtoList().add(new ItemDto(e.getProductId(),e.getQuantity())));
+        items.forEach(e -> cartDto.getItemDtoList().add(new ItemDto(e.getId(), e.getProductId(),e.getQuantity())));
         return cartDto;
     }
 
+    @Transactional
     public List<Item> addItemsToCart(CartDto cartDto)throws GenericException{
         User user = userRepository.findById(cartDto.getUserId()).orElseThrow(() -> new GenericException("No user foound"));
         Set<Item> itemsInCart = user.getCart().getItems();
@@ -63,8 +65,10 @@ public class CartService {
         return StreamSupport.stream(items.spliterator(), false).collect(Collectors.toList());
     }
 
-    public void deleteUser(Long id){
-        userRepository.deleteById(id);
+    @Transactional
+    public void deleteItemsFromCart(Long itemId){
+        itemRepository.deleteById(itemId);
+
     }
 
 }
