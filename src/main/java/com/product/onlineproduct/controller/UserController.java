@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     private UserService userService;
@@ -19,6 +21,12 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
 
     @GetMapping(value = "/user/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getUser(@PathVariable Long id){

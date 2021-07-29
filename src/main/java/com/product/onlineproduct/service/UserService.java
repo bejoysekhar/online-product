@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -17,6 +19,10 @@ public class UserService {
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.getAllUsers();
     }
 
     public UserDto getUser(Long id) throws GenericException {

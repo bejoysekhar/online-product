@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@CrossOrigin
 public class ProductController {
 
     private ProductService productService;
@@ -19,6 +21,12 @@ public class ProductController {
     public ProductController(ProductService productService){
         this.productService = productService;
     }
+
+    @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Product>> getAllProducts(){
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
 
     @GetMapping(value = "/product/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> getProduct(@PathVariable Long id){

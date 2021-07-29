@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class ProductService {
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -15,6 +19,12 @@ public class ProductService {
 
     public ProductService(ProductRepository productRepository){
         this.productRepository = productRepository;
+    }
+
+    public List<Product> getAllProducts() throws GenericException {
+        Iterable<Product> product = productRepository.findAll();
+        log.info("Product: {}", product);
+        return StreamSupport.stream(product.spliterator(), false).collect(Collectors.toList());
     }
 
     public Product getProduct(Long id) throws GenericException {
